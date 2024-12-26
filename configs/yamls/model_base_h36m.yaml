@@ -1,0 +1,9 @@
+in_dim: 49
+n_iters: 1
+pose_dr: 0.15
+pose_embed: 256
+pose_layers: 6
+mesh_dr: 0.15
+mesh_embed: 256
+mesh_layers: 4
+img_feat: 1024
