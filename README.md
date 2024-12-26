@@ -1,5 +1,15 @@
 PMCE++ extends the original [PMCE](https://github.com/kasvii/PMCE), presented at ICCV 2023, to achieve pose-and-shape accuracy, temporal consistency, and efficiency in 3D human mesh reconstruction from videos.
 
+<p align="center">
+    <img src="assets/framework.png" /> 
+</p>
+<p align="center">
+  <img src="assets/demo1.gif" height="110" /> 
+  <img src="assets/demo2.gif" height="110" /> 
+  <img src="assets/demo3.gif" height="110" /> 
+  <img src="assets/demo4.gif" height="110" /> 
+</p>
+
 ## Preparation
 
 1. Install dependencies. This project is developed on Ubuntu 18.04 with NVIDIA 3090 GPUs. We recommend you to use an [Anaconda](https://www.anaconda.com/) virtual environment.
@@ -45,3 +55,6 @@ python -m lib.eval.evaluate_mpii3d --cfg configs/yamls/test_mpii3d.yaml
 ```
 
 ## Train
+```bash
+python train.py --cfg configs/yamls/stage2.yaml --gpu 0
+```

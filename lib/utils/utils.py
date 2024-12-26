@@ -185,7 +185,7 @@ def save_code_files(logdir):
         'data/datasets': ['amass', 'dataset_eval', 'dataset2d', 'dataset3d', 'mixed_dataset', 'videos'],
         'data': ['_dataset'],
         'eval': ['evaluate_3dpw'],
-        'models': ['pmce', 'PMCE', 'PoseEst', 'CoevoDecoder'],
+        'models': ['PMCE', 'PoseEst', 'CoevoDecoder'],
         'models/layers': ['modules'],
         'configs/yamls': ['model_base'],
     }

@@ -23,10 +23,6 @@ class EvalDataset(BaseDataset):
         self.data = data
         parsed_data_path = os.path.join(_C.PATHS.PARSED_DATA, f'{data}_vm_{split}_{backbone}.pth')
         self.labels_ori = joblib.load(parsed_data_path)
-        print('self.labels_ori[kp2d].shape', len(self.labels_ori['kp2d'][-2]))
-        print('self.labels_ori[gt_marker].shape', len(self.labels_ori['gt_marker'][-2]))
-        print('self.labels_ori[pred_marker].shape', len(self.labels_ori['pred_marker'][-2]))
-        print('self.labels_ori[flipped_pred_marker].shape', len(self.labels_ori['flipped_pred_marker'][-2]))
         self.labels = defaultdict(list)
         for key, val in self.labels_ori.items():
             if key == 'vid' or key == 'gender':
@@ -42,11 +38,6 @@ class EvalDataset(BaseDataset):
             if key != 'vid' and key != 'gender':
                 self.labels[key] = torch.cat(self.labels[key])
         self.prepare_video_batch()
-
-        print('self.labels[kp2d].shape', len(self.labels['kp2d']))
-        print('self.labels[gt_marker].shape', len(self.labels['gt_marker']))
-        print('self.labels[pred_marker].shape', len(self.labels['pred_marker']))
-        print('self.labels[flipped_pred_marker].shape', len(self.labels['flipped_pred_marker']))
 
     def load_data(self, index, flip=False):
         if flip:
