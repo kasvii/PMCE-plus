@@ -66,7 +66,3 @@ wget "https://1drv.ms/u/c/d70f26d613e83858/EVje1dWfXt1OvaO_tAnZmsgBmg_EXSTO7hKfl
 wget "https://1drv.ms/u/c/d70f26d613e83858/EbknBa1xte9Prn4LLpMnEGQBPCkf_mLFapkG56WhUzWPzg?e=mGXQI1" -O 'checkpoints/hmr2a.ckpt'
 wget "https://1drv.ms/u/c/d70f26d613e83858/Eem7_1435CxHmx-DnoklgyYByiqo-p5i3CdI2Et0M43D0g?e=FH1tjP" -O 'checkpoints/yolov8x.pt'
 wget "https://1drv.ms/u/c/d70f26d613e83858/EaYBOy7hU59Mh_nn07jNsqoBaWQ1kUlBUiGwxH9fslE71A?e=oGg39P" -O 'checkpoints/vitpose-h-multi-coco.pth'
-
-# Demo video
-mkdir examples
-wget "https://1drv.ms/v/c/d70f26d613e83858/EcAI3fXKSeJMmj-064HZszIBoekxiROEk0f1uFr9Wj82wA?e=tnRZJv" -O 'examples/demo.mp4'
