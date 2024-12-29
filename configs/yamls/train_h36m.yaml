@@ -2,7 +2,7 @@ LOGDIR: ''
 DEVICE: 'cuda'
 OUTPUT_DIR: 'experiments'
 NUM_WORKERS: 8
-MODEL_CONFIG: 'configs/yamls/model_base_3dpw.yaml'
+MODEL_CONFIG: 'configs/yamls/model_base_h36m.yaml'
 FLIP_EVAL: True
 SEED_VALUE: 42
 
@@ -10,10 +10,9 @@ TRAIN:
   LR: 1e-4
   LR_FINETUNE: 1e-5
   STAGE: 'stage2'
-  POSE_CHECKPOINT: ''
   CHECKPOINT: ''
   BATCH_SIZE: 6
-  END_EPOCH: 50
+  END_EPOCH: 80
   MILESTONES: [20, 30]
   LR_DECAY_RATIO: 0.2
 
@@ -37,4 +36,4 @@ LOSS:
 
 DATASET:
   SEQLEN: 81
-  RATIO: [1.0, 1.0, 1.0, 1.0, 1.0]
+  RATIO: [1.0, 0.0, 0.0, 1.0, 0.0]

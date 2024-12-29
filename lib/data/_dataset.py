@@ -31,7 +31,7 @@ class BaseDataset(torch.utils.data.Dataset):
             perm = np.argsort(group)
             group_perm = group[perm]
             indices = np.split(
-                np.arange(0, self.labels['vid'].shape[0]), group_perm[1:]
+                np.arange(0, len(self.labels['vid'])), group_perm[1:]
             )
             for idx in range(len(video_names_unique)):
                 indexes = indices[idx]

@@ -127,7 +127,7 @@ class Trainer():
         for i, batch in enumerate(self.train_loader):
             
             # <======= Feedforward 
-            x, marker, inits, features, kwargs, gt = prepare_batch(batch, self.device) # , self.train_stage=='stage2'
+            x, marker, features, kwargs, gt = prepare_batch(batch, self.device) # , self.train_stage=='stage2'
             timer['data'] = time.time() - start
             start = time.time()
             if self.train_stage=='stage2':
@@ -200,7 +200,7 @@ class Trainer():
         
         with torch.no_grad():
             for i, batch in enumerate(self.valid_loader): # seqlen = video_len
-                x, marker, inits, features, kwargs, gt = prepare_batch(batch, self.device)
+                x, marker, features, kwargs, gt = prepare_batch(batch, self.device)
             
                 # <======= Feedforward 
                 if self.train_stage=='stage2':

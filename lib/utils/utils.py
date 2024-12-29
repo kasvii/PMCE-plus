@@ -179,28 +179,6 @@ def create_logger(logdir, phase='train'):
 
     return logger
 
-def save_code_files(logdir):
-    file_paths = {
-        'core': ['trainer', 'loss'],
-        'data/datasets': ['amass', 'dataset_eval', 'dataset2d', 'dataset3d', 'mixed_dataset', 'videos'],
-        'data': ['_dataset'],
-        'eval': ['evaluate_3dpw'],
-        'models': ['PMCE', 'PoseEst', 'CoevoDecoder'],
-        'models/layers': ['modules'],
-        'configs/yamls': ['model_base'],
-    }
-    for path in file_paths.keys():
-        for name in file_paths[path]:
-            output_path = osp.join(logdir, f'{name}.py')
-            if name != 'model_base':
-                input_path = osp.join('lib', path, f'{name}.py')
-                shutil.copy(src=input_path, dst=output_path)
-            else:
-                input_path = osp.join(path, f'{name}.yaml')
-                shutil.copy(src=input_path, dst=output_path)
-    shutil.copy(src='train.py', dst=osp.join(logdir, 'train.py'))
-    shutil.copy(src='configs/yamls/stage2.yaml', dst=osp.join(logdir, 'stage2.yaml'))
-
 class AverageMeter(object):
     def __init__(self):
         self.val = 0
@@ -244,7 +222,7 @@ def prepare_groundtruth(batch, device):
 
 def prepare_auxiliary(batch, device):
     aux = dict()
-    aux_keys = ['mask', 'bbox', 'res', 'cam_intrinsics', 'init_root', 'cam_angvel']
+    aux_keys = ['mask', 'bbox', 'res', 'cam_intrinsics', 'cam_angvel']
     for key in aux_keys:
         if key in batch.keys():
             dtype = torch.float32 if batch[key].dtype == torch.float64 else batch[key].dtype
@@ -266,20 +244,12 @@ def prepare_input(batch, device, use_features):
     else:
         features = None
 
-    # Initial SMPL parameters
-    init_smpl = batch['init_pose'].to(device).float()
-
-    # Initial keypoints
-    init_kp = torch.cat((
-        batch['init_kp3d'], batch['init_kp2d']
-    ), dim=-1).to(device).float()
-
-    return kp2d, marker, (init_kp, init_smpl), features
+    return kp2d, marker, features
 
 
 def prepare_batch(batch, device, use_features=True):
-    x, marker, inits, features = prepare_input(batch, device, use_features)
+    x, marker, features = prepare_input(batch, device, use_features)
     aux = prepare_auxiliary(batch, device)
     groundtruths = prepare_groundtruth(batch, device)
     
-    return x, marker, inits, features, aux, groundtruths
+    return x, marker, features, aux, groundtruths

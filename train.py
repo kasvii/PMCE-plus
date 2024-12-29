@@ -14,7 +14,7 @@ from lib.core.loss import WHAMLoss_stage1, WHAMLoss_stage2
 
 from lib.utils.utils import prepare_output_dir
 from lib.data.dataloader import setup_dloaders
-from lib.utils.utils import create_logger, get_optimizer, save_code_files
+from lib.utils.utils import create_logger, get_optimizer
 from lib.models import build_network, build_body_model
 
 def setup_seed(seed):
@@ -39,9 +39,6 @@ def main(cfg, _):
     
     writer = SummaryWriter(log_dir=cfg.LOGDIR)
     writer.add_text('config', pprint.pformat(cfg), 0)
-    
-    # ========= Save Code Files ========= #
-    save_code_files(cfg.LOGDIR)
     
     # ========= Dataloaders ========= #
     data_loaders = setup_dloaders(cfg, cfg.TRAIN.DATASET_EVAL, 'val')

@@ -6,35 +6,18 @@ import torch
 import numpy as np
 
 from .amass import AMASSDataset
-# from .surreal import SURREAL
+from .surreal import SURREAL
 from .videos import Human36M, ThreeDPW, MPII3D, InstaVariety
 from lib.utils.data_utils import make_collate_fn
 
 class DataFactory(torch.utils.data.Dataset):
     def __init__(self, cfg, train_stage='syn'):
         super(DataFactory, self).__init__()
-        
-        if train_stage == 'stage1':
-            if cfg.DEBUG:
-                self.datasets = [ThreeDPW(cfg)]
-                self.dataset_names = ['3DPW']
-            else:
-                self.datasets = [
-                     AMASSDataset(cfg), ThreeDPW(cfg), Human36M(cfg), MPII3D(cfg), InstaVariety(cfg)
-                ]
-                self.dataset_names = ['AMASS', '3DPW', 'Human36M', 'MPII3D', 'Insta']
-        elif train_stage == 'stage2':
-            if cfg.DEBUG:
-                self.datasets = [ThreeDPW(cfg)]
-                self.dataset_names = ['3DPW']
-            else:
-                self.datasets = [
-                     AMASSDataset(cfg), MPII3D(cfg), ThreeDPW(cfg), Human36M(cfg) #, SURREAL(cfg) 
-                ]
-                self.dataset_names = ['AMASS', 'MPII3D', '3DPW', 'Human36M'] # , 'SURREAL' ['3DPW'] # 'AMASS', 'AMASS', '3DPW', 'Human36M', 'MPII3D'
+        self.datasets = [
+            AMASSDataset(cfg), MPII3D(cfg), ThreeDPW(cfg), Human36M(cfg), SURREAL(cfg) 
+        ]
+        self.dataset_names = ['AMASS', 'MPII3D', '3DPW', 'Human36M', 'SURREAL']
             
-        print(len(self.datasets))
-
         self._set_partition(cfg.DATASET.RATIO)
         self.lengths = [len(ds) for ds in self.datasets]
 

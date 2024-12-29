@@ -159,20 +159,9 @@ class EvalDataset(BaseDataset):
 
         return target
 
-    def prepare_initialization(self, index, target):
-        start_index, end_index = self.video_indices[index]
-        # Initial frame per-frame estimation
-        target['init_kp3d'] = root_centering(self.labels[self.prefix + 'init_kp3d'][start_index:end_index+1][:1, :self.n_joints]).reshape(1, -1)
-        target['init_pose'] = transforms.axis_angle_to_matrix(self.labels[self.prefix + 'init_pose'][start_index:end_index+1][:1]).cpu()
-        pose_root = target['pose'][:, 0].clone()
-        target['init_root'] = transforms.matrix_to_rotation_6d(pose_root)
-        
-        return target
-        
     def get_data(self, index):
         target = {}
         target = self.prepare_labels(index, target)
         target = self.prepare_inputs(index, target)
-        target = self.prepare_initialization(index, target)
         
         return target

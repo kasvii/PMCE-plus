@@ -28,14 +28,12 @@ def prepare_keypoints_data(target):
     """Prepare keypoints data"""
     
     # Prepare 2D keypoints
-    target['init_kp2d'] = target['kp2d'][:1]
     target['kp2d'] = target['kp2d'][1:]
     if 'kp3d' in target:
         target['kp3d'] = target['kp3d'][1:]
         
     # Prepare 3D keypoints
     if 'pred_marker' in target:
-        target['init_pred_marker'] = target['pred_marker'][:1]
         target['pred_marker'] = target['pred_marker'][1:]
     if 'gt_marker' in target:
         target['gt_marker'] = target['gt_marker'][1:]
@@ -58,9 +56,6 @@ def prepare_smpl_data(target):
     if 'transl' in target.keys():
         target['cam'] = target['transl'][1:]
     
-    # Initial pose and translation
-    target['init_pose'] = transforms.matrix_to_rotation_6d(target['init_pose'])
-
     return target
 
 

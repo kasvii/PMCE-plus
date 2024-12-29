@@ -97,18 +97,6 @@ class Dataset2D(BaseDataset):
         target['verts'] = torch.zeros((self.n_frames - 1, 6890, 3)).float()
         return target
         
-    def get_init_frame(self, target):
-        # Prepare initial frame
-        output = self.smpl.get_output(
-            body_pose=target['init_pose'][:, 1:],
-            global_orient=target['init_pose'][:, :1],
-            betas=target['betas'][:1],
-            pose2rot=False
-        )
-        target['init_kp3d'] = root_centering(output.joints[:1, :self.n_joints]).reshape(1, -1)   
-        
-        return target
-
     def get_single_sequence(self, index):
         # Camera parameters
         res = (224.0, 224.0)
@@ -144,7 +132,6 @@ class Dataset2D(BaseDataset):
         
         self.get_inputs(index, target)
         self.get_labels(index, target)
-        self.get_init_frame(target)
         
         target = d_utils.prepare_keypoints_data(target)
         target = d_utils.prepare_smpl_data(target)
