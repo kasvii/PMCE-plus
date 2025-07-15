@@ -20,6 +20,7 @@ conda activate pmce_plus
 
 # Install PyTorch >= 1.2 according to your GPU driver.
 conda install pytorch==1.11.0 torchvision==0.12.0 torchaudio==0.11.0 cudatoolkit=11.3 -c pytorch -c conda-forge
+conda install pytorch3d -c pytorch3d -y
 
 # Pull the code
 git clone https://github.com/kasvii/PMCE-plus.git --recursive
